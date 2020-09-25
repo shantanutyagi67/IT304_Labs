@@ -1,0 +1,6 @@
+#Type=Line
+#Heading=APP2_CUSTOM_Throughput
+#XLabel=Time (ms)
+#Num_Y=1
+#YLabel=Throughput (Mbps)
+0,0,
