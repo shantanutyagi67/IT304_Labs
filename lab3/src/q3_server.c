@@ -129,7 +129,7 @@ void* process(void* ptr)
     size = stat_buf.st_size;
     printf(" size is %d\n", size);
     printf("\nopened file\n");
-    int64_t Time_in_ms = gettime();
+    int64_t Time_in_ms = clock();
     sprintf(strt, "%"PRId64"", Time_in_ms);
     send(conn->sock, strt, sizeof(strt), 0);
     sprintf(string_Round_trip_time, "%"PRId64"", MaxRTT);

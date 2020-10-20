@@ -80,7 +80,7 @@ int main(int argc,char **argv)
     send(sockfd,f_name,sizeof(f_name),0);
 
     recv(sockfd,T_m_s,sizeof(T_m_s),0);
-
+    //T_m_s1=get_time() 	
     recv(sockfd,s_RTT,sizeof(s_RTT),0);
 
     long long l_Tms=strtoll(T_m_s,&end,10);
@@ -96,18 +96,19 @@ int main(int argc,char **argv)
 
         if(n<BUF_SIZE-2)
 	{
-            T_m_r = get_time();
+            T_m_r = clock();
             break;
         }
+        //T_m_r = get_time();
     }
 
     printf("RTT is %lld microseconds.\n",RTT); // Printing the RTT
 
-    printf("T_m_s is %lld microseconds.\n",l_Tms); 
+    printf("T_m_s is %lld clock cycles.\n",l_Tms); 
 
-    printf("T_m_r is %"PRId64" microseconds\n",T_m_r);
+    printf("T_m_r is %"PRId64" clock cycles\n",T_m_r);
 
-    printf("File receiving has been completed in %lld microseconds.\n",(long long)T_m_r-l_Tms);
+    printf("File receiving has been completed in %lld microseconds.\n",(long long)T_m_r*10000-l_Tms*10000);
 
     close(sockfd);
     close(fd);
