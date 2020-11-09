@@ -21,12 +21,14 @@
 
 int64_t get_time()
 {
+    //struct timespec t_m_s;
+
     struct timespec t_m_s;
 
     if(clock_gettime(CLOCK_REALTIME,&t_m_s))
     return -1;
     
-    int64_t m=t_m_s.tv_nsec*1000000;
+    int64_t m=t_m_s.tv_sec*1000000;
 
     m+=t_m_s.tv_nsec/1000;
 
@@ -80,11 +82,11 @@ int main(int argc,char **argv)
     send(sockfd,f_name,sizeof(f_name),0);
 
     recv(sockfd,T_m_s,sizeof(T_m_s),0);
-    //T_m_s1=get_time() 	
+
     recv(sockfd,s_RTT,sizeof(s_RTT),0);
 
     long long l_Tms=strtoll(T_m_s,&end,10);
-
+     //long long l_Tms = get_time();
     long long RTT=strtoll(s_RTT,&end,10);
 
     fd=open(f_name,O_WRONLY|O_CREAT,S_IRWXU);
@@ -96,19 +98,18 @@ int main(int argc,char **argv)
 
         if(n<BUF_SIZE-2)
 	{
-            T_m_r = clock();
+           // T_m_r = get_time();
             break;
         }
-        //T_m_r = get_time();
     }
-
+	T_m_r = get_time();
     printf("RTT is %lld microseconds.\n",RTT); // Printing the RTT
 
-    printf("T_m_s is %lld clock cycles.\n",l_Tms); 
+    printf("T_m_s is %lld microseconds.\n",l_Tms); 
 
-    printf("T_m_r is %"PRId64" clock cycles\n",T_m_r);
+    printf("T_m_r is %"PRId64" microseconds\n",T_m_r);
 
-    printf("File receiving has been completed in %lld microseconds.\n",(long long)T_m_r*10000-l_Tms*10000);
+    printf("File receiving has been completed in %lld microseconds.\n",(long long)T_m_r-l_Tms);
 
     close(sockfd);
     close(fd);
