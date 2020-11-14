@@ -1,0 +1,8 @@
+#Type=Line
+#Heading=Link_9_Throughput
+#XLabel=Time (ms)
+#Num_Y=1
+#YLabel=Throughput (Mbps)
+0,0,
+0.032200,16.894410,
+0.032200,33.788820,
